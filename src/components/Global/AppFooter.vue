@@ -63,7 +63,7 @@
         <div class="row">
           <div class="col-sm-12 text-center">
             <div class="copyright-text">
-              <p>CopyRight © 2021 Esraa Hesham Saad</p>
+              <p>CopyRight © 2022 Esraa Hesham Saad</p>
             </div>
           </div>
           <!-- End Col -->
@@ -113,7 +113,7 @@ export default {
   color: #707070;
 }
 .footer ul a:hover {
-  color: #f4511e;
+  color: #95008d;
   text-decoration: none;
 }
 /*footer bottom */
@@ -124,7 +124,7 @@ export default {
   background: #fff;
 }
 .copyright-text p {
-  color: #f4511e;
+  color: #95008d;
   margin-top: 18px;
   margin-bottom: 0;
   font-size: 18px;
@@ -142,7 +142,7 @@ export default {
   font-size: 40px;
   margin: auto;
   padding-right: 10px;
-  color: #f4511e;
+  color: #95008d;
 }
 
 .social {

@@ -3,7 +3,7 @@
     <nav class="navbar navbar-inverse">
       <div class="logo">
         <router-link tag="li" to="/" exact
-          ><a class="navbar-brand text-left" href="#">OUR SITE</a></router-link
+          ><a class="navbar-brand text-left">OUR SITE</a></router-link
         >
       </div>
 
@@ -16,6 +16,7 @@
             ><a>Users Table</a></router-link
           >
         </ul>
+
         <router-link tag="button" :to="{ name: 'login' }">Login</router-link>
       </ul>
     </nav>
@@ -35,6 +36,7 @@ export default {
 }
 .navbar {
   color: cornsilk;
+  padding: 10px 20px;
 }
 .header ul {
   color: cornsilk;
@@ -58,7 +60,7 @@ export default {
 }
 .navbar {
   margin-bottom: 0;
-  background-color: #f4511e;
+  background-color: #95008d;
   z-index: 9999;
   border: 0;
   font-size: 12px !important;
@@ -73,7 +75,7 @@ export default {
 }
 .navbar-nav:not(.navbar-right) li a:hover,
 .navbar-nav:not(.navbar-right) li.active a {
-  color: #f4511e !important;
+  color: #95008d !important;
   background-color: rgba(224, 185, 175, 0.932) !important;
   margin: 5px;
   font-size: 18px;

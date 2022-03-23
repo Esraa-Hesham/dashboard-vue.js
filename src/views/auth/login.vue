@@ -2,9 +2,9 @@
   <div class="applogin">
     <div class="login-wrap">
       <div class="login-html">
-        <label for="tab-2" class="tab">Sign In</label>
+        <label for="tab-2" class="tab">Login</label>
         <div class="login-form">
-          <form v-on:submit.prevent="login">
+          <form v-on:submit.prevent="loginValidation">
             <div class="sign-in-htm">
               <div class="group">
                 <label for="user" class="label">E-mail</label>
@@ -14,6 +14,7 @@
                   type="email"
                   class="input"
                   v-model="email"
+                  ref="email"
                 />
               </div>
               <div class="group">
@@ -25,6 +26,7 @@
                   class="input"
                   data-type="password"
                   v-model="password"
+                  ref="password"
                 />
               </div>
               <div class="group">
@@ -57,19 +59,31 @@ export default {
       password: "",
     };
   },
+  computed: {
+    users() {
+      return this.$store.getters.getUsers;
+    },
+  },
   methods: {
-    login(form) {
-      this.isLoading = true;
-      var formData = new FormData(form.target);
-      this.axios
-        .post("https://alpita.mtgofa.com/api/login?lang=ar", formData)
-        .then((response) => {
-          console.log(response.data);
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    loginValidation() {
+      let email = this.$refs.email.value;
+      let password = this.$refs.password.value;
+      for (let i = 0; i < this.users.length; i++) {
+        if (
+          email == this.users[i].email &&
+          password == this.users[i].password
+        ) {
+          this.users[i];
+          this.$store.commit("login", this.users[i]);
+
+          break;
+        }
+      }
+      if (this.$store.getters.getLoggedInUser) {
+        this.$router.push("/UsersTable/");
+      } else {
+        alert("Invalid Username and/or Password!");
+      }
     },
   },
 };
@@ -78,7 +92,7 @@ export default {
 body {
   margin: 0;
   color: #6a6f8c;
-  background: #f4511e;
+  background: #95008d;
   font: 600 16px/18px "Open Sans", sans-serif;
 }
 *,
@@ -148,7 +162,7 @@ a {
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab {
   color: #fff;
-  border-color: #f4511e;
+  border-color: #95008d;
 }
 .login-form {
   min-height: 345px;
@@ -178,11 +192,11 @@ a {
   -webkit-text-security: circle;
 }
 .login-form .group .label {
-  color: #f4511e;
+  color: #95008d;
   font-size: 18px;
 }
 .login-form .group .button {
-  background: #f4511e;
+  background: #95008d;
 }
 .login-form .group label .icon {
   width: 15px;
@@ -216,7 +230,7 @@ a {
   color: #fff;
 }
 .login-form .group .check:checked + label .icon {
-  background: #f4511e;
+  background: #95008d;
 }
 .login-form .group .check:checked + label .icon:before {
   transform: scale(1) rotate(45deg);
@@ -224,31 +238,10 @@ a {
 .login-form .group .check:checked + label .icon:after {
   transform: scale(1) rotate(-45deg);
 }
-.login-html
-  .sign-in:checked
-  + .tab
-  + .sign-up
-  + .tab
-  + .login-form
-  .sign-in-htm {
+.login-html .sign-in:checked {
   transform: rotate(0);
 }
 .login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
   transform: rotate(0);
-}
-
-.hr {
-  height: 2px;
-  margin: 0px 0 15px 0;
-  background: rgba(255, 255, 255, 0.2);
-}
-.foot-lnk {
-  text-align: center;
-}
-
-.foot-lnk label {
-  display: inline-block;
-  margin-bottom: -0.5rem;
-  font-size: 20px;
 }
 </style>

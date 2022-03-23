@@ -1,11 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import About from "../views/About.vue";
+
 import login from "../views/auth/login.vue";
 import UsersTable from "../views/UsersTable/index.vue";
+import store from "../store/index.js";
 
 Vue.use(VueRouter);
+function isLoggedIn() {
+  return !!store.getters.getLoggedInUser;
+}
 
 const routes = [
   {
@@ -13,11 +17,7 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  {
-    path: "/about",
-    name: "About",
-    component: About,
-  },
+
   {
     path: "/login",
     name: "login",
@@ -27,6 +27,10 @@ const routes = [
     path: "/UsersTable/",
     name: "UsersTable",
     component: UsersTable,
+    beforeEnter: (to, from, next) => {
+      if (isLoggedIn()) return next();
+      else return next({ name: "login" });
+    },
   },
 ];
 
